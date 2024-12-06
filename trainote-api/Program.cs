@@ -1,4 +1,15 @@
+using trainote_api.Context;
+using Microsoft.EntityFrameworkCore;
+using trainote_api.Models;
+using trainote_api.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Adiciona o serviço do DbContext ao contêiner de DI
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql("Server=localhost;Port=5432;Database=trainotes;User Id=postgres;Password=123;"));
+
+builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -9,6 +20,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.MapOpenApi();
 }
 
@@ -21,7 +33,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
