@@ -1,6 +1,7 @@
-@trainote_api_HostAddress = http://localhost:5170
+#@trainote_api_HostAddress = http://localhost:5170
 
-GET {{trainote_api_HostAddress}}/weatherforecast/
-Accept: application/json
+#GET {{trainote_api_HostAddress}}/weatherforecast/
+#Accept: application/json
 
 ###
+
