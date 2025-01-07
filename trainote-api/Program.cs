@@ -11,6 +11,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5170); // HTTP
+    options.ListenLocalhost(5001, listenOptions => listenOptions.UseHttps()); // HTTPS
+});
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -18,11 +24,7 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.MapOpenApi();
-}
+
 
 app.UseHttpsRedirection();
 
