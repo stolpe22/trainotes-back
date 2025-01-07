@@ -3,6 +3,6 @@
 #GET {{trainote_api_HostAddress}}/weatherforecast/
 #Accept: application/json
 
-GET "http://localhost:5170/api/usuario"
+GET "https://localhost:5170/api/usuario"
 
 
