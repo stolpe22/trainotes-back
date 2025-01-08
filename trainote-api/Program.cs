@@ -27,6 +27,8 @@ builder.WebHost.ConfigureKestrel(options =>
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddControllers(); // Registra os controladores no contêiner de DI
+
 var app = builder.Build();
 System.Console.WriteLine("Aplicação construída, configurando middleware...");
 
@@ -41,7 +43,6 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-builder.Services.AddControllers(); // Registra os controladores no contêiner de DI
 
 app.UseRouting();
 app.UseEndpoints(endpoints =>
