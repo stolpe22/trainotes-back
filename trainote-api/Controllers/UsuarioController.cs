@@ -17,7 +17,7 @@ namespace trainote_api.Controllers
         [HttpPost]
         public IActionResult Add(UsuarioViewModel usuarioView)
         {
-            var usuario = new Usuario(usuarioView.nome, usuarioView.email);
+            var usuario = new Usuario(usuarioView.nome, usuarioView.email, usuarioView.foto);
             _usuarioRepository.Add(usuario);
             return Ok();
         }
