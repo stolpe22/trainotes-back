@@ -44,3 +44,4 @@ msbuild.wrn
 
 # misc
 Storage/
+trainote-api/trainote-api.http.httpbook
