@@ -22,4 +22,9 @@ public class UsuarioRepository : IUsuarioRepository
     {
         return _context.Usuarios.ToList();
     }
+
+    public Usuario? Get(int id)
+    {
+        return _context.Usuarios.Find(id);
+    }
 }

@@ -26,6 +26,18 @@ namespace trainote_api.Controllers
             _usuarioRepository.Add(usuario);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("{id}/download")]
+        public IActionResult DownloadPhoto(int id)
+        {
+            var usuario = _usuarioRepository.Get(id);
+
+            var dataBytes = System.IO.File.ReadAllBytes(usuario.foto);
+
+            return File(dataBytes, "image/png");
+        }
+
         [HttpGet]
         public IActionResult Get()
         {

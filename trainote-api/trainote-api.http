@@ -3,6 +3,16 @@
 #GET {{trainote_api_HostAddress}}/weatherforecast/
 #Accept: application/json
 
-GET "https://localhost:5170/api/usuario"
+GET "http://localhost:5170/api/usuario/"
 
+### Enviar usuário com imagem
+POST http://localhost:5170/api/usuario/
+multipart(
+    'nome' < 'lucasteste',
+    'email' < 'testestestse@sgae',
+    'foto' < 'D:\foto-video\chapada-11-01-25\fotos\1736738205403.jpg'
+)
 
+POST "http://localhost:5170/api/usuario/7/download"
+"Accept" : "image/png"
+>> "S:/git/trainotes/trainotes-back/trainote-api/Storage/Downloads"
