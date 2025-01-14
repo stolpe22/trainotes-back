@@ -15,9 +15,14 @@ namespace trainote_api.Controllers
             _usuarioRepository = usuarioRepository ?? throw new ArgumentNullException(nameof(usuarioRepository));
         }
         [HttpPost]
-        public IActionResult Add(UsuarioViewModel usuarioView)
+        public IActionResult Add([FromForm] UsuarioViewModel usuarioView)
         {
-            var usuario = new Usuario(usuarioView.nome, usuarioView.email, usuarioView.foto);
+            var filePath = Path.Combine("Storage", usuarioView.foto.FileName);
+
+            using Stream fileStream = new FileStream(filePath, FileMode.Create);
+            usuarioView.foto.CopyTo(fileStream);
+
+            var usuario = new Usuario(usuarioView.nome, usuarioView.email, filePath);
             _usuarioRepository.Add(usuario);
             return Ok();
         }
