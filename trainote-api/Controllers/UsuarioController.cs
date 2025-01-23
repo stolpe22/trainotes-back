@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using trainote_api.Models;
@@ -14,6 +15,8 @@ namespace trainote_api.Controllers
         {
             _usuarioRepository = usuarioRepository ?? throw new ArgumentNullException(nameof(usuarioRepository));
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult Add([FromForm] UsuarioViewModel usuarioView)
         {

@@ -5,6 +5,10 @@ using trainote_api.Infrastructure;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using trainote_api;
 
 System.Console.WriteLine("Iniciando a aplicação...");
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +18,26 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql("Server=localhost;Port=5432;Database=trainotes;User Id=postgres;Password=123;"));
 
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+
+//token
+var key = Encoding.ASCII.GetBytes(Key.Secret);
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 builder.WebHost.ConfigureKestrel(options =>
 {

@@ -11,6 +11,11 @@ public class Usuario
     public string email { get; private set; }
     public string? foto { get; set; }
 
+    public Usuario()
+    {
+
+    }
+
     public Usuario(string nome, string email, string foto)
     {
         this.nome = nome ?? throw new ArgumentNullException(nameof(nome));
